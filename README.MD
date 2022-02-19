@@ -1,15 +1,15 @@
 # proxy-pool 代理IP池
 
 ## 项目来源参考：https://github.com/denghuichao/proxy-pool
-
-## 个人进行些改动
+- 个人进行些改动
 
 ## 简介  
-最近在玩爬虫, 很多网站有反爬虫机制,会对访问频率太高的IP进行禁封.于是到网上去找免费的代理,使用过程中发现这些代理的质量不高,很多都不能使用,因此想到做个代理池.程序主动收集代理IP,并定时对这些代理进行可用性验证,同时提供接口获取可用的代理供爬虫使用.  
+- 定期从全球代理网站爬取最新的 ip 代理池
+- 每 1 小时重新验证 1 次
 
 ## 代理IP来源
 - [ ] [goubanjia](http://www.goubanjia.com/) 【2022.02.19 测试网站已失效】
-- [x] [kuaidaili](http://www.kuaidaili.com) 
+- [x] [kuaidaili](https://www.kuaidaili.com/free/) 
 - [x] [66IP](http://www.66ip.cn)
 - [ ] [xicidaili](http://www.xicidaili.com) 【2022.02.19 测试网站已失效】
 - 这几个网站的代理IP.每个网站IP只爬取了前面10页,后面的基本上不可用.
