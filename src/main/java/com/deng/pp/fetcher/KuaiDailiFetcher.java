@@ -1,6 +1,7 @@
 package com.deng.pp.fetcher;
 
 import com.deng.pp.entity.ProxyEntity;
+import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -18,9 +19,8 @@ import java.util.List;
  * Created by hcdeng on 2017/6/29.
  * http://www.kuaidaili.com 代理爬取
  */
+@Slf4j
 public class KuaiDailiFetcher extends AbstractFetcher<List<ProxyEntity>> {
-
-    private static final Logger logger = LoggerFactory.getLogger(KuaiDailiFetcher.class);
 
     private static final String BASE_URL = "http://www.kuaidaili.com/free/";
 
@@ -81,7 +81,7 @@ public class KuaiDailiFetcher extends AbstractFetcher<List<ProxyEntity>> {
 
                 enity.setLastValidateTime(date);
 
-                logger.info("got an agent: "+enity);
+                log.info("got an agent: "+enity);
                 res.add(enity);
             }
         }

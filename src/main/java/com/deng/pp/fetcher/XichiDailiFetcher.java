@@ -1,6 +1,7 @@
 package com.deng.pp.fetcher;
 
 import com.deng.pp.entity.ProxyEntity;
+import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -15,16 +16,17 @@ import java.util.Date;
 import java.util.List;
 
 /**
+* 【2022.02.19 已失效】
+ *
  * Created by hcdeng on 2017/6/29.
  * http://www.xicidaili.com 代理爬取
  */
+@Slf4j
 public class XichiDailiFetcher extends AbstractFetcher<List<ProxyEntity>> {
 
     private static final String BASE_URL = "http://www.xicidaili.com/";
 
     private static final SimpleDateFormat SDF = new SimpleDateFormat("yy-MM-dd HH:mm");
-
-    private static final Logger logger = LoggerFactory.getLogger(XichiDailiFetcher.class);
 
 
     public XichiDailiFetcher() {
@@ -104,7 +106,7 @@ public class XichiDailiFetcher extends AbstractFetcher<List<ProxyEntity>> {
 
                 enity.setLastValidateTime(date);
 
-                logger.info("got an agent: " + enity);
+                log.info("got an agent: " + enity);
                 res.add(enity);
             }
         }

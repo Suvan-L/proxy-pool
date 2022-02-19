@@ -1,13 +1,10 @@
 package com.deng.pp.utils;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.net.URL;
-
+@Slf4j
 public class ClassUtil {
-
-    private static final Logger logger = LoggerFactory.getLogger(ClassUtil.class);
 
     /**
      * 获取类加载器
@@ -43,7 +40,7 @@ public class ClassUtil {
         try {
             cls = Class.forName(className, isInitialized, getClassLoader());
         } catch (ClassNotFoundException e) {
-            logger.error("加载类出错！", e);
+            log.error("加载类出错！", e);
             throw new RuntimeException(e);
         }
         return cls;

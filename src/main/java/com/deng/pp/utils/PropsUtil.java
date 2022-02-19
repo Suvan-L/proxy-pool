@@ -1,5 +1,6 @@
 package com.deng.pp.utils;
 
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -7,9 +8,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 
+@Slf4j
 public class PropsUtil {
-
-    private static final Logger logger = LoggerFactory.getLogger(PropsUtil.class);
 
     /**
      * 加载属性文件
@@ -30,7 +30,7 @@ public class PropsUtil {
                 props.load(is);
             }
         } catch (Exception e) {
-            logger.error("加载属性文件出错！", e);
+            log.error("加载属性文件出错！", e);
             throw new RuntimeException(e);
         } finally {
             try {
@@ -38,7 +38,7 @@ public class PropsUtil {
                     is.close();
                 }
             } catch (IOException e) {
-                logger.error("释放资源出错！", e);
+                log.error("释放资源出错！", e);
             }
         }
         return props;

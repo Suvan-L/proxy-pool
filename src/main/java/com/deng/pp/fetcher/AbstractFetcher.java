@@ -1,9 +1,8 @@
 package com.deng.pp.fetcher;
 
+import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,6 +11,7 @@ import java.util.List;
 /**
  * Created by hcdeng on 2017/6/29.
  */
+@Slf4j
 public abstract class AbstractFetcher<T> implements Fetcher {
 
     private static final String[][] HEADERS = new String[][]{
@@ -23,8 +23,6 @@ public abstract class AbstractFetcher<T> implements Fetcher {
             {"Accept-Encoding", "gzip, deflate, sdch"},
             {"Accept-Language", "zh-CN,zh;q=0.8"},
     };
-
-    private static final Logger logger = LoggerFactory.getLogger(AbstractFetcher.class);
 
     protected int pageIndex = 1;
 
@@ -44,7 +42,7 @@ public abstract class AbstractFetcher<T> implements Fetcher {
         String html = "";
         String url = pageUrl();
         pageIndex++;
-        logger.info("fetching page: " + url);
+        log.info("fetching page: " + url);
         try {
             Connection connection = Jsoup.connect(url);
             for (String[] head : HEADERS) {
@@ -53,7 +51,7 @@ public abstract class AbstractFetcher<T> implements Fetcher {
             connection.timeout(4000).followRedirects(true);
             html = connection.execute().parse().html();//执行
         } catch (IOException e) {
-            logger.info("fetch page error: " + e.getMessage());
+            log.info("fetch page error: " + e.getMessage());
         }
 
         return html;

@@ -17,9 +17,12 @@ import java.util.concurrent.TimeUnit;
  */
 @SpringBootApplication(scanBasePackages={"com.deng.pp.api"})
 public class ApplicationBoot {
+    /*
+     * 设置 2 个定时任务爬虫，1 小时执行 1 次
+     */
     private static final List<Scheduler> schedules = Arrays.asList(
-            new FetchScheduler(30, TimeUnit.MINUTES),
-            new VerifyScheduler(10, TimeUnit.MINUTES)
+            new FetchScheduler(1, TimeUnit.HOURS),
+            new VerifyScheduler(1, TimeUnit.HOURS)
     );
 
     public static void main(String[] args) {

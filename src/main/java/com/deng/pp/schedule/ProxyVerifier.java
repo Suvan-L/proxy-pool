@@ -4,6 +4,7 @@ import com.deng.pp.db.repositor.ProxyRepository;
 import com.deng.pp.entity.ProxyEntity;
 import com.deng.pp.utils.ProxyUtil;
 import com.fasterxml.jackson.annotation.JacksonInject;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,6 +14,7 @@ import java.util.concurrent.*;
 /**
  * Created by hcdeng on 17-7-3.
  */
+@Slf4j
 public class ProxyVerifier {
 
     private static final int THREAD_NUMS = 2;
@@ -22,8 +24,6 @@ public class ProxyVerifier {
     private static final BlockingQueue<ProxyEntity> FETCHED_PROXYS = new LinkedBlockingQueue<>(100000);
 
     private static final BlockingQueue<ProxyEntity> CACHED_PROXYS = new LinkedBlockingQueue<>(10000);
-
-    private static final Logger logger = LoggerFactory.getLogger(ProxyVerifier.class);
 
     private static boolean running = true;
 
@@ -70,14 +70,18 @@ public class ProxyVerifier {
             while (running) {
                 try {
                     ProxyEntity proxy = proxys.take();
-                    logger.info("verifying : " + proxy.getIp()+":"+proxy.getPort()+" in "+pName+", remaining: "+proxys.size());
+                    log.info("verifying : " + proxy.getIp()+":"+proxy.getPort()+" in "+pName+", remaining: "+proxys.size());
 
                     boolean useful = ProxyUtil.verifyProxy(proxy);
-                    if (useful)
+                    if (useful) {
+                        // 如果有效，当前代理，存入 Redis
                         ProxyRepository.getInstance().save(proxy);
-                    else ProxyRepository.getInstance().delete(proxy);
+                    } else {
+                        // 如果无效删除，从 Redis 删除此代理
+                        ProxyRepository.getInstance().delete(proxy);
+                    }
                 } catch (InterruptedException e) {
-                    logger.warn("exception when verifying proxy: " + e.getMessage());
+                    log.warn("exception when verifying proxy: " + e.getMessage());
                 }
             }
         });

@@ -2,6 +2,7 @@ package com.deng.pp.fetcher;
 
 
 import com.deng.pp.entity.ProxyEntity;
+import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -19,9 +20,8 @@ import java.util.List;
  * Created by hcdeng on 2017/6/29.
  * http://www.66ip.cn 代理爬取
  */
+@Slf4j
 public class Www66IPFetcher extends AbstractFetcher<List<ProxyEntity>> {
-
-    private static final Logger logger = LoggerFactory.getLogger(Www66IPFetcher.class);
 
     private static final String BASE_URL = "http://www.66ip.cn";
 
@@ -82,7 +82,7 @@ public class Www66IPFetcher extends AbstractFetcher<List<ProxyEntity>> {
 
                 enity.setLastValidateTime(date);
 
-                logger.info("got an agent: " + enity);
+                log.info("got an agent: " + enity);
 
                 res.add(enity);
             }

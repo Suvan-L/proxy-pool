@@ -3,6 +3,7 @@ package com.deng.pp.db.config;
 import com.deng.pp.Constants;
 import com.deng.pp.entity.ProxyEntity;
 import com.deng.pp.utils.PropsUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
@@ -19,6 +20,7 @@ import java.util.Properties;
 /**
  * Created by hcdeng on 17-7-3.
  */
+@Slf4j
 public class RedisConfiguration {
 
     private static final Properties REDIS_PROPS = PropsUtil.loadProps(Constants.REDIS_PROPS);
@@ -28,9 +30,6 @@ public class RedisConfiguration {
     public static RedisTemplate<String, ProxyEntity> getRedisTemplate(){
         return config.redisTemplate();
     }
-
-    private static final Logger logger = LoggerFactory.getLogger(RedisConfiguration.class);
-
 
     private JedisConnectionFactory jedisConnFactory() {
         try {
@@ -50,7 +49,7 @@ public class RedisConfiguration {
             return jedisConnFactory;
 
         } catch (URISyntaxException e) {
-            logger.warn("error when in jedisConnFactory: "+e.getMessage());
+            log.warn("error when in jedisConnFactory: "+e.getMessage());
             return null;
         }
     }

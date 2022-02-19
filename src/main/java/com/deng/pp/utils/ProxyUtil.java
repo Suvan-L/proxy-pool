@@ -2,6 +2,7 @@ package com.deng.pp.utils;
 
 import com.deng.pp.entity.ProxyEntity;
 import com.deng.pp.fetcher.GoubanjiaFetcher;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,9 +12,8 @@ import java.net.*;
 /**
  * Created by hcdeng on 17-7-3.
  */
+@Slf4j
 public class ProxyUtil {
-
-    private static final Logger logger = LoggerFactory.getLogger(ProxyUtil.class);
 
     private static final String VERIFY_URL = "http://www.baidu.com/";
 
@@ -52,13 +52,13 @@ public class ProxyUtil {
             int rCode = connection.getResponseCode();
             useful =  rCode == 200;
         }catch (IOException e1){
-            logger.warn(String.format("verify proxy %s:%d exception: "+e1.getMessage(),ip, port));
+            log.warn(String.format("verify proxy %s:%d exception: "+e1.getMessage(),ip, port));
             useful = false;
         }finally {
             if(connection != null)connection.disconnect();
         }
 
-        logger.info(String.format("verify proxy %s:%d useful: "+useful, ip, port));
+        log.info(String.format("verify proxy %s:%d useful: "+useful, ip, port));
         return useful;
     }
 

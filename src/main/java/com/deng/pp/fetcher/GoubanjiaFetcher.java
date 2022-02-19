@@ -2,6 +2,7 @@ package com.deng.pp.fetcher;
 
 import com.deng.pp.entity.ProxyEntity;
 import com.google.common.base.Strings;
+import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -17,14 +18,15 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * 【2022.02.19 已失效】
+ *
  * Created by hcdeng on 2017/6/29.
  * http://www.goubanjia.com/ 代理爬取
  */
+@Slf4j
 public class GoubanjiaFetcher extends AbstractFetcher<List<ProxyEntity>> {
 
     private static final String BASE_URL = "http://www.goubanjia.com/free/";
-
-    private static final Logger logger = LoggerFactory.getLogger(GoubanjiaFetcher.class);
 
     private static final SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
@@ -117,7 +119,7 @@ public class GoubanjiaFetcher extends AbstractFetcher<List<ProxyEntity>> {
                 }
                 enity.setLastValidateTime(date);
 
-                logger.info("got an agent: " + enity);
+                log.info("got an agent: " + enity);
                 res.add(enity);
             }
         }
